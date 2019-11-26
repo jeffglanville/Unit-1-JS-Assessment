@@ -8,7 +8,7 @@
 /**
  * ### Challenge `getName`
  * Example ✅
- * 
+ *
  * @instructions
  * Must return input object's `name` property.
  *
@@ -22,58 +22,65 @@ function getName(character) {
 /**
  * ### Challenge `getFilmCount`
  * MVP Challenge 🤓
- * 
+ *
  * @instructions
  * Must return the number of elements in the `films` property.
  *
  * Sample data expected output: 5
  */
 function getFilmCount(character) {
-  // TODO: Add your code inside the functions (others below).
+  return character.films.length;
 
 }
 
 /**
  * ### Challenge `getSecondStarshipName`
  * MVP Challenge 🤓
- * 
+ *
  * @instructions
  * Return second starship's name from `starships` property.
  * If length is 0. Return 'none'
 */
 function getSecondStarshipName(character) {
-  // TODO: Add your code here.
+  if(character.starships.length === 0){
+    return 'none';
+  }
+  return character.starships[1].name;
 }
 
 /**
  * ### Challenge `getSummary`
  * MVP Challenge 🤓
- * 
+ *
  * @instructions
  * Combine specified field values and return them in the following string format:
  *    Template: `{name}, {height}cm, {mass}kg. Featured in {film count} films.`
  *    Result: `Luke Skywalker, 172cm, 77kg. Featured in 5 films.`
  */
 function getSummary(character) {
-  // TODO: Add your code here.
+  return `${character.name}, ${character.height}cm, ${character.mass}kg. Featured in ${character.films.length} films.`;
 }
 
 /**
  * ### Challenge `getVehiclesCostInCreditsSumTotal`
  * MVP Challenge 🤓
- * 
+ *
  * @instructions
  * Sum the total cost in credits for all vehicles defined on the input character.
  * Sample data expected output: 8000
 */
 function getVehiclesCostInCreditsSumTotal(character) {
-  // TODO: Add your code here.
+  const addAll = (accumulator, {cost_in_credit}) => {
+    return accumulator + cost_in_credit;
+  }
+  const sumAll = character.vehicles.reduce(addAll, 0);
+  return sumAll;
 }
 
 /**
  * ### Challenge `getStarshipPassengerAndCrewSumTotal`
  * MVP Challenge 🤓
- * 
+ *
  * @instructions
  * Sum the number of crew and passenger spots for all starships defined on the
  * input character.
@@ -81,13 +88,22 @@ function getVehiclesCostInCreditsSumTotal(character) {
  * Sample data expected output: 27
 */
 function getStarshipPassengerAndCrewSumTotal(character) {
-  // TODO: Add your code here.
+  const addPass = (accumulator, num) => {
+    return accumulator + num.passengers;
+  }
+  const addCrew = (accumulator, num) => {
+    return accumulator + num.crew;
+  }
+  const totalPass = character.starships.reduce(addPass, 0);
+  const totalCrew = character.starships.reduce(addCrew, 0);
+  const totalCount = totalPass + totalCrew;
+  return totalCount;
 }
 
 /**
  * ### Challenge `getNthFilm`
  * MVP Challenge 🤓
- * 
+ *
  * @instructions
  * Return the Nth `films` value (in this case title).
  * Rules: filmNumber starts at 1 and refers to the *first* film, and includes only the range 1-3.
@@ -98,13 +114,17 @@ function getStarshipPassengerAndCrewSumTotal(character) {
  * Given film #7, expected error: `There are only 3 Star Wars movies. Flan fiction excluded.`
 */
 function getNthFilm(character, filmNumber) {
-  // TODO: Add your code here.
+  if(filmNumber < 4 && filNumber > 0) {
+    let characterFilm = character.Films[filmNumber -1];
+    return characterFilm;
+  }
+  return " There are only 3 Star Wars movies. Flan fiction excluded";
 }
 
 /**
  * ### Challenge `getCargoCapacityTotal`
  * Stretch Goal 💪
- * 
+ *
  * @instructions
  * Sum the total cargo capacity for *all* vehicles and starships.
  * Some objects may not have a value for their cargo capacity.
@@ -112,13 +132,13 @@ function getNthFilm(character, filmNumber) {
  * Sample data expected output: 80124
 */
 function getCargoCapacityTotal(character) {
-  // TODO: Add your code here.
+
 }
 
 /**
  * ### Challenge `getFastestStarshipName`
  * Stretch Goal 💪
- * 
+ *
  * @instructions
  * Find the fastest starship (by atmospheric speed.)
  * Determine the correct field to compare, and return the name of the fastest.
@@ -133,7 +153,7 @@ function getFastestStarshipName(character) {
 /**
  * ### Challenge `getLargestCargoStarshipModelName`
  * Stretch Goal 💪
- * 
+ *
  * @instructions
  * Determine the starship with the largest cargo capacity.
  * Return it's **_model_** property.
